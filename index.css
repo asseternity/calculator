@@ -1,0 +1,12 @@
+#operand1_area, #operand2_area, #result_area {
+    border: 1px solid black;
+    margin-bottom: 5px;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+}
+
+#result_area {
+    margin-bottom: 20px;
+}
