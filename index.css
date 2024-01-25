@@ -1,25 +1,70 @@
+:root {
+    --main-color: #2C3E41;
+    --secondary-color: #4A716F;
+    --thirdary-color: #E3D1AB;
+    font-family: 'Titillium Web';
+    color: var(--main-color);
+    background-color: var(--secondary-color);
+}
+
+body {
+    text-align: center;
+}
+
 #operand1_area, #operand2_area, #result_area {
-    border: 1px solid darkcyan;
+    border: 1px solid var(--main-color);
+    background-color: var(--thirdary-color);
     border-radius: 20px;
-    margin-bottom: 5px;
-    min-height: 30px;
+    min-height: 50px;
     display: flex;
     align-items: center;
     padding-left: 5px;
     font-size: 150%;
 }
 
-#result_area {
-    margin-bottom: 20px;
-}
-
 button {
     font-size: 150%;
     border-radius: 10px;
     padding: 10px;
-    border-color: darkcyan;
+    border-color: var(--main-color);
+    font-family: 'Titillium Web';
+    color: var(--main-color);
 }
 
 button:hover {
-    background-color: lightgreen;
+    background-color: var(--thirdary-color);
+}
+
+.buttons_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(auto, 150px));
+    gap: 10px;
+}
+
+#operand1_area, #operand2_area, #result_area {
+    grid-column: 1 / 5;
+}
+
+#bClear {
+    grid-column: 1 / 3;
+}
+
+#bBackspace {
+    grid-column: 3 / 5;
+}
+
+#bPoint, #bPlus, #bMinus, #bMultiply, #bDivide, #bEquals, #bClear, #bBackspace {
+    background-color: var(--main-color);
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+#bPoint:hover, #bPlus:hover, #bMinus:hover, #bMultiply:hover, #bDivide:hover, #bEquals:hover, #bClear:hover, #bBackspace:hover {
+    background-color: white;
 }

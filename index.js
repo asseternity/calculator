@@ -13,15 +13,23 @@ let operand1finished = false;
 let resultGiven = false;
 // function addToOperand1(numberbutton) will add string '1', '2' to operand1 and return operand1
 function addToOperand1(numberbutton) {
-    operand1 += numberbutton;
-    operand1_area.textContent = parseInt(operand1);
+    if (numberbutton !== 'point') {
+        operand1 += numberbutton;
+    } else if (!operand1.includes('.')) {
+        operand1 += '.';
+    }
+    operand1_area.textContent = parseFloat(operand1);
     which_operand = 1;
     return operand1;    
 }
 // function addToOperand2(numberbutton) will add string '1', '2' to operand1 and return operand1
 function addToOperand2(numberbutton) {
-    operand2 += numberbutton;
-    operand2_area.textContent = parseInt(operand2);
+    if (numberbutton !== 'point') {
+        operand2 += numberbutton;
+    } else if (!operand2.includes('.')) {
+        operand2 += '.';
+    }
+    operand2_area.textContent = parseFloat(operand2);
     which_operand = 2;
     return operand2;    
 }
@@ -32,7 +40,7 @@ function addToOperand(numberbutton) {
         else { return addToOperand2(numberbutton) }
     } else if (operator !== '') {
         operand1 = result;
-        operand1_area.textContent = parseInt(operand1);
+        operand1_area.textContent = parseFloat(operand1);
         result = '';
         resultGiven = false;
         result_area.textContent = result;
@@ -55,24 +63,28 @@ function determineOperator(operatorbutton) {
 function operation() {
     switch (operator) {
         case '+':
-            result = parseInt(operand1) + parseInt(operand2);
+            result = parseFloat(operand1) + parseFloat(operand2);
+            result = parseFloat(result.toFixed(8));
             result_area.textContent = result;
             break;
         case '-':
-            result = parseInt(operand1) - parseInt(operand2);  
+            result = parseFloat(operand1) - parseFloat(operand2);
+            result = parseFloat(result.toFixed(8));  
             result_area.textContent = result;
             break;
         case '*':
-            result = parseInt(operand1) * parseInt(operand2);  
+            result = parseFloat(operand1) * parseFloat(operand2);
+            result = parseFloat(result.toFixed(8));  
             result_area.textContent = result;
             break;
         case '/':
-            if (parseInt(operand2) == 0 ) {
+            if (parseFloat(operand2) == 0 ) {
                 alert('ERROR');
                 clear();
                 break;
             } else {
-                result = parseInt(operand1) / parseInt(operand2);  
+                result = parseFloat(operand1) / parseFloat(operand2);  
+                result = parseFloat(result.toFixed(8));
                 result_area.textContent = result;
                 break;
             }
@@ -101,6 +113,7 @@ let button7 = document.querySelector('#b7');
 let button8 = document.querySelector('#b8');
 let button9 = document.querySelector('#b9');
 let button0 = document.querySelector('#b0');
+let buttonPoint = document.querySelector('#bPoint');
 let buttonPlus = document.querySelector('#bPlus');
 let buttonMinus = document.querySelector('#bMinus');
 let buttonMultiply = document.querySelector('#bMultiply');
@@ -117,6 +130,7 @@ button7.addEventListener('click', () => addToOperand('7'));
 button8.addEventListener('click', () => addToOperand('8'));
 button9.addEventListener('click', () => addToOperand('9'));
 button0.addEventListener('click', () => addToOperand('0'));
+buttonPoint.addEventListener('click', () => addToOperand('point'));
 
 buttonPlus.addEventListener('click', () => determineOperator('+'));
 buttonMinus.addEventListener('click', () => determineOperator('-'));
@@ -157,7 +171,13 @@ document.addEventListener('keydown', function(event) {
         case '0':
             addToOperand('0')
             break;
-        case '+':
+        case ',':
+            addToOperand('point')
+            break;
+        case '.':
+            addToOperand('point')
+            break;
+            case '+':
             determineOperator('+')
             break;
         case '-':
@@ -205,20 +225,14 @@ buttonClear.addEventListener('click', () => clear());
 function backspace() {
     if (which_operand == 1) {
         operand1 = operand1.slice(0, -1);
-        if (operand1 !== '') { operand1_area.textContent = parseInt(operand1); }
+        if (operand1 !== '') { operand1_area.textContent = parseFloat(operand1); }
         else { operand1_area.textContent = '' };
     } else if (which_operand == 2) {
         operand2 = operand2.slice(0, -1);
-        if (operand2 !== '') { operand2_area.textContent = parseInt(operand2); }
+        if (operand2 !== '') { operand2_area.textContent = parseFloat(operand2); }
         else { operand2_area.textContent = '' };
     }
 }
 
 let buttonBackspace = document.querySelector('#bBackspace');
 buttonBackspace.addEventListener('click', () => backspace());
-
-// You should round answers with long decimals so that they don’t overflow the screen.
-// Users can get floating point numbers if they do the math required to get one, but they can’t type them in yet. Add a . button and let users input decimals! Make sure you don’t let them type more than one though: 12.3.56.5.
-
-// Make it look nice! This is a great project to practice your CSS skills. At least make the operations a different color from the keypad buttons.
-// host on pages
